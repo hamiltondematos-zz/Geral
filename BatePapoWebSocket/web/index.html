@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>Bate-papo websocket</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width">
+
+        <link rel="stylesheet" type="text/css" href="css/bootstrap/css/bootstrap.css">
+        <script type="text/javascript" src="js/libs/jquery/jquery.js"></script>
+        <script type="text/javascript">
+
+            var ws;
+
+            $(document).ready(function() {
+                ws = new WebSocket("ws://spod0434:9080/BatePapoWebSocket/sala");
+
+                ws.onmessage = function(event) {
+                    recebeMensagem(event);
+                }
+            });
+
+            function recebeMensagem(event) {
+                $('#mensagens').val($('#mensagens').val() + event.data + '\n');
+            }
+
+            function enviaMensagem() {
+                var msg = $('#nick').val() + ' - ' + $('#mensagem').val();
+                ws.send(msg);
+                $('#mensagem').val('');
+            }
+
+        </script>
+
+    </head>
+    <body>
+
+        <br/>
+        <br/>
+
+        <div class="container" style="width: 500px" >
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <form>
+                        <input type="text" placeholder="seu nick" id="nick" class="input-lg"/><br/><br/>
+                        <textarea cols="20" rows="10" id="mensagens" readonly="readonly" class="form-control input-lg"></textarea><br/>
+                        <input type="text" placeholder="sua mensagem" id="mensagem" class="input-lg"/>
+                        <input type="button" value="enviar" onclick="enviaMensagem();" class="btn btn-lg btn-success"/>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </body>
+</html>

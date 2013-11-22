@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:jsf="http://xmlns.jcp.org/jsf">
+
+    <!-- INTERFACE -->
+    <cc:interface>
+        <cc:attribute name="nickname" default="anonimo"/>
+    </cc:interface>
+
+    <!-- IMPLEMENTATION -->
+    <cc:implementation>
+
+        <h:outputScript name="jquery/jquery-1.10.2.min.js"/>
+        <h:outputStylesheet name="css/bootstrap/css/bootstrap.css" />        
+
+        <script type="text/javascript">
+            var ws;
+
+            $(document).ready(function() {
+                ws = new WebSocket("ws://spod0434:9080/BatePapoWebSocketJSF/sala");
+
+                ws.onmessage = function(event) {
+                    recebeMensagem(event);
+                }
+            });
+
+            function recebeMensagem(event) {
+                $('#mensagens').val($('#mensagens').val() + event.data + '\n');
+            }
+
+
+            function enviaMensagem() {
+                var msg = $('#nick').val() + ' - ' + $('#mensagem').val();
+                ws.send(msg);
+                $('#mensagem').val('');
+            }
+
+        </script>
+
+        <div class="container" style="width: 500px" >
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <form jsf:id="idForm" >
+                        <input type="text" id="nick" placeholder="seu nick" jsf:value="#{cc.attrs.nickname}"  class="input-lg"/><br/><br/>
+                        <textarea rows="10" cols="20" readonly="readonly" id="mensagens" class="form-control input-lg"></textarea><br/>
+                        <input type="text" id="mensagem" placeholder="sua mensagem" class="input-lg"/>
+                        <input type="button" value="envia" onclick="enviaMensagem();" class="btn btn-lg btn-success"/>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </cc:implementation>
+</html>
