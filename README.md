@@ -2,6 +2,6 @@
 
 Estes projetos são exemplos de utilização da nova API de websocket do JEE7.
 
-Os objetos WebSocket dos projetos têm uma referência do tipo:
-ws = new WebSocket("ws://localhost:9080/BatePapoWebSocket/sala");
+Os objetos WebSocket dos projetos têm uma referência do tipo:<br/>
+ws = new WebSocket("ws://localhost:9080/BatePapoWebSocket/sala");<br/>
 Altere para a porta do seu servidor.
