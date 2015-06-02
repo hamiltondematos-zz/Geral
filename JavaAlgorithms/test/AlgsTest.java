@@ -20,6 +20,20 @@ public class AlgsTest {
     }
 
     @Test
+    public void testBinarySearch() {
+
+        Arrays.sort(arrayToTest);
+
+        int expectedIndex = Arrays.binarySearch(arrayToTest, 4);
+
+        int processedIndex = algs.binarySearch(arrayToTest, 4);
+
+        Assert.assertEquals(expectedIndex, processedIndex);
+
+        resetArray();
+    }
+
+    @Test
     public void testBubbleSort() {
 
         int[] expectedResult = new int[arrayToTest.length];
@@ -119,12 +133,11 @@ public class AlgsTest {
     }
 
     @Test
-    public void testCountAllLetters(){
+    public void testCountAllLetters() {
         String word = "this is the word to test"; // 5 t's
         int countExpected = 5;
         int countProcessed = algs.countAllLetters(word)['t'];
         Assert.assertEquals(countExpected, countProcessed);
-        
     }
-    
+
 }

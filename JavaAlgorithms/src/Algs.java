@@ -13,6 +13,29 @@ public class Algs {
 
     }
 
+    public int binarySearch(int[] array, int elementToSearch) {
+        int indexFound = -1;
+
+        int lowIndex = 0;
+        int highIndex = array.length - 1;
+
+        while (lowIndex <= highIndex) {
+
+            int middleIndex = (highIndex + lowIndex) / 2;
+
+            if (elementToSearch < array[middleIndex]) {
+                highIndex = middleIndex - 1;
+            } else if (elementToSearch > array[middleIndex]) {
+                lowIndex = middleIndex + 1;
+            } else {
+                indexFound = middleIndex;
+                lowIndex = highIndex + 1;
+            }
+        }
+
+        return indexFound;
+    }
+
     public int[] bubbleSort(int[] theArrayToSort) {
         for (int i = theArrayToSort.length - 1; i >= 0; i--) {
 
